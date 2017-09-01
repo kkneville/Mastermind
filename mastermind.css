@@ -1,0 +1,141 @@
+body {
+
+}
+
+h1 {
+  margin-left: 130px;
+}
+
+#controls p {
+  width: 330px;
+}
+
+.start {
+  width: 90px;
+  height: 45px;
+  margin-left: 120px;
+  margin-bottom: 20px;
+}
+.control_buttons {
+  margin-left: 80px;
+}
+
+.placeholder {
+  width: 45px;;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+#controls:nth-child(1) {
+  margin-top: 100px;
+}
+
+/*#yellow_button {
+  background-color: yellow;
+}
+
+#blue_button {
+  background-color: blue;
+}
+
+#red_button {
+  background-color: red;
+}
+
+#green_button {
+  background-color: green;
+}
+
+#purple_button {
+  background-color: purple;
+}*/
+
+button {
+  width: 50px;
+  height: 20px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.guess {
+  width: 45px;
+  height: 45px;
+  border-radius: 50px;
+  background-color: rgb(216, 216, 216);
+}
+
+
+/*.clear {
+  width: 150px;
+
+}*/
+
+.submit {
+  width: 50px;
+  font-weight: bold;
+  vertical-align: top;
+  height: 45px;
+  display: inline-block;
+}
+
+#controls {
+  width: 200px;
+  margin-left: 50px;
+}
+
+#game_board {
+  display: inline-block;
+  width: 360px;
+  border-style: solid;
+  border-width: 1px;
+  margin-left: 30px;
+}
+
+#solution p {
+  display: inline-block;
+}
+
+#solution {
+  border-top-style: solid;
+  border-width: 1px;
+  width: 300px;
+  text-align: center;
+  padding: 30px;
+  background-color: rgb(216, 216, 216);
+}
+
+.guess_row {
+  width: 300px;
+  display: inline-block;
+}
+
+.guess_board {
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
+}
+
+#response_column {
+  display: inline-block;
+}
+
+.response {
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  background-color: rgb(128, 128, 128);
+  display: inline-block;
+}
+
+.response_row {
+  width: 50px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.guess_row button {
+  font-size: 10px;
+}
