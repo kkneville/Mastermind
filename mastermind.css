@@ -6,8 +6,17 @@ h1 {
   margin-left: 130px;
 }
 
-#controls p {
+#controls p:nth-child(2) {
   width: 330px;
+}
+
+#controls p:nth-child(1) {
+  width: 330px;
+  text-align: center;
+}
+
+#howto:hover {  
+  font-weight: bold;
 }
 
 .start {
