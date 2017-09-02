@@ -5,250 +5,8 @@
     <title>Mastermind</title>
     <link rel="stylesheet" href="mastermind.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <script type="text/javascript">
-
-    var counter = 0
-    $(document).on("click", ".guess", function() {
-    counter++;
-    });
-
-    </script>
-
-    <script>
-    $(document).ready(function(){
-
-    $(document).on("click", ".guess", function() {
-          console.log('registered click');
-          // console.log($(this).css("background-color"));
-          if ( $(this).css("background-color")=='rgb(216, 216, 216)') {
-            $(this).css("background-color", "rgb(42, 94, 214)");
-            // console.log('blue');
-          }
-          else if ( $(this).css("background-color")=='rgb(42, 94, 214)') {
-            // console.log('second if');
-            $(this).css("background-color", "rgb(183, 16, 16)");
-          }
-          else if ( $(this).css("background-color")=='rgb(183, 16, 16)') {
-            // console.log('third if');
-            $(this).css("background-color", "rgb(10, 119, 16)");
-          }
-          else if ( $(this).css("background-color")=='rgb(10, 119, 16)') {
-            // console.log('third if');
-            $(this).css("background-color", "rgb(85, 42, 150)");
-          }
-          else if ( $(this).css("background-color")=='rgb(85, 42, 150)') {
-            // console.log('third if');
-            $(this).css("background-color", "rgb(242, 242, 19)");
-          }
-          else if ( $(this).css("background-color")=='rgb(242, 242, 19)') {
-            // console.log('third if');
-            $(this).css("background-color", "rgb(216, 216, 216)");
-          }
-      });
-    });
-
-    </script>
-
-    <script>
-  $(document).ready(function(){
-  $('#game_board').hide();
-  $('.solution').hide();
-
-  var colors = [("rgb(42, 94, 214)"), ("rgb(183, 16, 16)"), ("rgb(10, 119, 16)"), ("rgb(85, 42, 150)"), ("rgb(242, 242, 19)")];
-
-  $(document).on('click', '.start', function() {
-    $('#game_board').show();
-    console.log ('start');
-
-    var sol = [];
-    for (var d = 0; d < 4; d++){
-      // sol.push(colors[Math.trunc(Math.random * 4)]);
-      sol.push(colors[Math.trunc(Math.random()*4)]);
-    }
-    console.log(sol);
-
-  $(document).on("click", ".submit", function() {
-    // $(this).fadeOut();
-
-    var play =
-    [($(this).parent().siblings('.guess1').css('background-color')),($(this).parent().siblings('.guess2').css('background-color')),($(this).parent().siblings('.guess3').css('background-color')),($(this).parent().siblings('.guess4').css('background-color'))];
-    console.log(play);
-
-    for (var b = 0; b < play.length; b++) {
-      if (play[b] == 'rgb(216, 216, 216)'){
-        console.log ('incomplete guess');
-        break;
-      }
-      else {
-        $(this).fadeOut();
-      }
-    }
-
-    var match = 0
-    var almost = 0
-    var play_almost = []
-    var sol_almost = []
-
-    // for (var i = 0 ; i < play.length; i++) {
-    //   if ( play[i] == sol[i]) {
-    //     match++;
-    //   }
-    //   else {
-    //     for (var ab = 0; ab < 4; ab++) {
-    //       if (play[i] == play_almost[ab]) {
-    //         continue;  // this is supposed to prevent duplicates
-    //       }
-    //       else {
-    //         play_almost.push(play[i]);
-    //       }
-    //     }
-    //     for (var ac = 0; ac < 4; ac++) {
-    //       if (sol[i] == sol_almost[ac]) {
-    //         continue;
-    //       }
-    //       else {
-    //         sol_almost.push(sol[i]);
-    //       }
-    //     }
-    //   }
-    // }
-
-    // count 'almosts'
-    //var colors = [("rgb(42, 94, 214)"), ("rgb(183, 16, 16)"), ("rgb(10, 119, 16)"), ("rgb(85, 42, 150)"), ("rgb(242, 242, 19)")];
-    var colorDict = {
-      "rgb(42, 94, 214)": "blue",
-      "rgb(183, 16, 16)": "red",
-      "rgb(10, 119, 16)": "green",
-      "rgb(85, 42, 150)": "purple",
-      "rgb(242, 242, 19)": "yellow"
-    };
-
-    var playDict = {};
-    var solDict = {};
-
-    for (var i = 0 ; i < play.length; i++) {
-      if ( play[i] == sol[i]) {
-        match++;
-      }
-      if (!playDict[colorDict[play[i]]]) {
-        playDict[colorDict[play[i]]] = 1;
-      } else {
-        playDict[colorDict[play[i]]]++;
-      }
-      if (!solDict[colorDict[sol[i]]]) {
-        solDict[colorDict[sol[i]]] = 1;
-      } else {
-        solDict[colorDict[sol[i]]]++;
-      }
-    }
-
-    var playColors = Object.keys(playDict);
-    for (var i = 0; i < playColors.length; i++){
-      if (solDict[playColors[i]]) {
-        if (solDict[playColors[i]] == 1 || playDict[playColors[i]] == 1) {
-          almost++;
-        } else if (playDict[playColors[i]] > 1 && playDict[playColors[i]] <= solDict[playColors[i]]) {
-          almost += playDict[playColors[i]];
-        } else {
-          almost += solDict[playColors[i]];
-        }
-      }
-    }
-
-    almost -= match;
-
-    console.log('playDict', playDict);
-    console.log('solDict', solDict);
-
-    console.log(`match: ${match}`);
-    console.log(`almost: ${almost}`);
-    console.log("play_almost: " + play_almost); //NOT POPULATING THESE ANYMORE
-    console.log("sol_almost: " + sol_almost);
-
-//TEMP ALTERNATE CODE - GIVES TOO MANY ALMOST RESPONSES, EARLIER VERSION GIVES TOO FEW
-    // for (var i = 0 ; i < play.length; i++) {
-    //   if ( play[i] == sol[i]) {
-    //     match++;
-    //   }
-    //   else {
-    //         play_almost.push(play[i]);
-    //         sol_almost.push(sol[i]);
-    //   }
-    // }
-
-    console.log("play_almost: " + play_almost);
-    console.log("sol_almost: " + sol_almost);
-
-    for (var a = 0; a < (play_almost.length) ; a++) {
-      for (var ae = 0; ae < (sol_almost.length) ; ae++) {
-        console.log(play_almost[a], sol_almost[ae])
-        if (play_almost[a] == sol_almost[ae]) {
-          almost++;
-        }
-      }
-    }
-    console.log('match: ' + match, 'almost: ' + almost);
-
-    if (match == 4) {
-      console.log('win!');
-      $('.submit').hide();
-      alert('You Won!');
-      $('.solution1').css('background-color', sol[0]);
-      $('.solution2').css('background-color', sol[1]);
-      $('.solution3').css('background-color', sol[2]);
-      $('.solution4').css('background-color', sol[3]);
-      $('.solution').fadeIn();
-    }
-
-    var reply = ['rgb (216, 216, 216)', 'rgb (216, 216, 216)', 'rgb (216, 216, 216)', 'rgb (216, 216, 216)'];
-    for (var e = 0; e < 4; e++) {
-      if (match > 0) {
-        reply[e] = 'rgb(0, 0, 0)';
-        match--;
-        continue;
-      }
-      else if (almost > 0) {
-        reply[e] = 'rgb(255, 255, 255)';
-        almost--;
-      }
-    }
-    console.log(reply);
-
-    if (match == 0 && almost < 3) {
-      $(this).parent().siblings().find('.response1').css('background-color', reply[0]);
-      $(this).parent().siblings().find('.response2').css('background-color', reply[1]);
-      $(this).parent().siblings().children('.response3').css('background-color', reply[2]);
-      $(this).parent().siblings().children('.response4').css('background-color', reply[3]);
-    }
-
-    $(document).on('click', '.last_guess', function() {
-      console.log ('end');
-      $('.submit').hide();
-
-      $('.solution1').css('background-color', sol[0]);
-      $('.solution2').css('background-color', sol[1]);
-      $('.solution3').css('background-color', sol[2]);
-      $('.solution4').css('background-color', sol[3]);
-
-      $('.solution').fadeIn();
-
-        });
-      });
-    });
-  });
-</script>
-
-<script>
-
-// $(document).on('click', '.last_guess', function() {
-//   // for (var e = 0 ; e < 4 ; e ++) {
-//     $('.solution1').css('background-color','sol[e]');
-//     console.log (sol[e]);
-//   // }
-// });
-
-</script>
+    <script type="text/javascript" src="./mastermind.js"></script>
+    <script type="text/javascript" src="./contextMenu.js"></script>
 
 
   </head>
@@ -256,22 +14,19 @@
 
   <h1> Mastermind </h1>
   <div id="controls">
-      <p>Click on the buttons to make your guess, then submit. For any guess that is the correct color and in the correct location, you will see one black dot in the response key. For any that are the correct color, you will see a white dot in the solution key. You have 12 guesses. </p>
+      <p id="howto">How to Play</p>
+      <p>Click on the buttons to make your guess, then submit. For any guess that is the correct color and in the correct location, you will see one black dot in the response key. For any that are the correct color, you will see a white dot in the solution key. You have 8 guesses. </p>
       <button class="start">Start</button>
-      <!-- <p><button class="color_guess" id="yellow_button">Yellow</button></p>
-      <p><button class="color_guess" id="blue_button">Blue</button></p>
-      <p><button class="color_guess" id="red_button">Red</button></p>
-      <p><button class="color_guess" id="green_button">Green</button></p>
-      <p><button class="color_guess" id="purple_button">Purple</button></p> -->
   </div>
+
+
 
   <div id="game_board">
 
     <div class="guess_board">
 
       <div class="guess_row">
-        <div class="placeholder">
-          <button class="submit">Submit</button></div>
+        <div class="placeholder"><button class="submit">Submit</button></div>
         <button class="guess guess1"></button>
         <button class="guess guess2"></button>
         <button class="guess guess3"></button>
@@ -305,66 +60,6 @@
         <button class="guess guess3"></button>
         <button class="guess guess4"></button>
         <div class='response_row'>
-          <button class="response response1"></button>
-          <button class="response response2"></button>
-          <button class="response response3"></button>
-          <button class="response response4"></button>
-        </div>
-      </div>
-
-      <div class="guess_row">
-        <div class="placeholder">
-          <button class="submit">Submit</button></div>
-        <button class="guess guess1"></button>
-        <button class="guess guess2"></button>
-        <button class="guess guess3"></button>
-        <button class="guess guess4"></button>
-        <div class="response_row">
-          <button class="response response1"></button>
-          <button class="response response2"></button>
-          <button class="response response3"></button>
-          <button class="response response4"></button>
-        </div>
-      </div>
-
-      <div class="guess_row">
-        <div class="placeholder">
-          <button class="submit">Submit</button></div>
-        <button class="guess guess1"></button>
-        <button class="guess guess2"></button>
-        <button class="guess guess3"></button>
-        <button class="guess guess4"></button>
-        <div class="response_row">
-          <button class="response response1"></button>
-          <button class="response response2"></button>
-          <button class="response response3"></button>
-          <button class="response response4"></button>
-        </div>
-      </div>
-
-      <div class="guess_row">
-        <div class="placeholder">
-          <button class="submit">Submit</button></div>
-        <button class="guess guess1"></button>
-        <button class="guess guess2"></button>
-        <button class="guess guess3"></button>
-        <button class="guess guess4"></button>
-        <div class="response_row">
-          <button class="response response1"></button>
-          <button class="response response2"></button>
-          <button class="response response3"></button>
-          <button class="response response4"></button>
-        </div>
-      </div>
-
-      <div class="guess_row">
-        <div class="placeholder">
-          <button class="submit">Submit</button></div>
-        <button class="guess guess1"></button>
-        <button class="guess guess2"></button>
-        <button class="guess guess3"></button>
-        <button class="guess guess4"></button>
-        <div class="response_row">
           <button class="response response1"></button>
           <button class="response response2"></button>
           <button class="response response3"></button>
@@ -460,6 +155,8 @@
     </div>
 
   </div>
+
+
 
 
 
