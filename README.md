@@ -1,2 +1,2 @@
 # Mastermind
-Early project in Jacascript
+Early project in Javascript
